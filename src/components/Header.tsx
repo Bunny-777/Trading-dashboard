@@ -21,10 +21,15 @@ export default function Header() {
 
           <NotificationsPanel />
 
-          <div className="flex items-center gap-2 px-3 py-2 bg-neutral-100 dark:bg-neutral-900 rounded-lg cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
-            <Search className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
-            <span className="text-sm text-neutral-500 dark:text-neutral-400">Search here...</span>
-          </div>
+          <div className="flex items-center gap-2 px-3 py-2 bg-neutral-100 dark:bg-neutral-900 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
+  <Search className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
+  <input
+    type="text"
+    placeholder="Search here..."
+    className="bg-transparent border-none outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 w-40 focus:w-56 transition-all"
+  />
+</div>
+
 
           <button
             onClick={toggleTheme}
