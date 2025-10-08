@@ -3,7 +3,7 @@ import { TrendingUp, ArrowUp, ArrowDown } from 'lucide-react';
 export default function Home() {
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Welcome to Cryptic</h1>
+      <h1 className="text-3xl font-bold mb-6">Welcome to BunnyTrades</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard

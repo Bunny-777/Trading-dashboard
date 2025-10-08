@@ -17,21 +17,23 @@ export default function ProfileDropdown() {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-[1000]" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-3 hover:opacity-80 transition-opacity"
       >
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-lime-500 to-emerald-500 overflow-hidden" />
         <div className="text-left">
-          <div className="text-sm font-semibold text-neutral-900 dark:text-white">Rene Wells</div>
-          <div className="text-xs text-neutral-500 dark:text-neutral-400">@leftist_crypto_ow</div>
+          <div className="text-sm font-semibold text-neutral-900 dark:text-white">Bunny</div>
+          <div className="text-xs text-neutral-500 dark:text-neutral-400">@bunny777</div>
         </div>
-        <span className="px-2 py-0.5 bg-neutral-200 dark:bg-neutral-800 text-xs rounded text-neutral-700 dark:text-neutral-300">PRO</span>
+        <span className="px-2 py-0.5 bg-neutral-200 dark:bg-neutral-800 text-xs rounded text-neutral-700 dark:text-neutral-300">
+          PRO
+        </span>
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl overflow-hidden z-50">
+        <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl overflow-hidden z-[9999]">
           <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-lime-500/10 to-emerald-500/10">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lime-500 to-emerald-500" />
@@ -68,7 +70,15 @@ export default function ProfileDropdown() {
   );
 }
 
-function MenuItem({ icon: Icon, label, danger = false }: { icon: any; label: string; danger?: boolean }) {
+function MenuItem({
+  icon: Icon,
+  label,
+  danger = false,
+}: {
+  icon: any;
+  label: string;
+  danger?: boolean;
+}) {
   return (
     <button
       className={`w-full flex items-center gap-3 px-4 py-2.5 transition-colors ${

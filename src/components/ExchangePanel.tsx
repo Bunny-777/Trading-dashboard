@@ -1,4 +1,5 @@
-import { Maximize2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Maximize2, Sun, Moon } from 'lucide-react';
 
 export default function ExchangePanel() {
   const total = 3450;
@@ -10,15 +11,29 @@ export default function ExchangePanel() {
     { value: 400, color: 'rgb(23, 23, 23)', label: 'Segment 5' },
   ];
 
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
+
   return (
-    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-6 h-full">
+    <div className="bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 h-full transition-colors">
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold">Exchange</h3>
-        <button className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors">
-          <Maximize2 className="w-4 h-4 text-neutral-400" />
-        </button>
+        <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Exchange</h3>
+        <div className="flex items-center gap-2">
+        
+        </div>
       </div>
 
+      {/* Chart */}
       <div className="flex flex-col items-center justify-center mb-8">
         <div className="relative w-64 h-64">
           <svg viewBox="0 0 200 200" className="transform -rotate-90">
@@ -57,7 +72,7 @@ export default function ExchangePanel() {
                   key={index}
                   d={path}
                   fill={segment.color}
-                  stroke="#171717"
+                  stroke={darkMode ? '#171717' : '#e5e7eb'}
                   strokeWidth="2"
                 />
               );
@@ -68,15 +83,16 @@ export default function ExchangePanel() {
 
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-3xl font-bold">{total.toLocaleString()}</div>
+              <div className="text-3xl font-bold text-neutral-900 dark:text-white">{total.toLocaleString()}</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-neutral-800 pt-4">
-        <div className="text-xs text-neutral-500 text-center">
-          This design was created for Cryptic
+      {/* Footer */}
+      <div className="border-t border-neutral-200 dark:border-neutral-800 pt-4">
+        <div className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
+          This design was created for BunnyTrades
         </div>
       </div>
     </div>
