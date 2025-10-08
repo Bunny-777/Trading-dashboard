@@ -1,8 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { User, Settings, LogOut, CreditCard, Shield } from 'lucide-react';
+import MyProfile from './MyProfile';
+import AccountSettings from './AccountSettings';
+import PaymentMethods from './PaymentMethods';
+import Security from './Security';
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activePage, setActivePage] = useState<'profile' | 'settings' | 'payment' | 'security'>('profile');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -11,7 +16,6 @@ export default function ProfileDropdown() {
         setIsOpen(false);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -33,13 +37,14 @@ export default function ProfileDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl overflow-hidden z-[9999]">
+        <div className="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl overflow-hidden z-[9999]">
+          {/* Header */}
           <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-lime-500/10 to-emerald-500/10">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lime-500 to-emerald-500" />
               <div>
-                <div className="font-semibold text-neutral-900 dark:text-white">Rene Wells</div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">@leftist_crypto_ow</div>
+                <div className="font-semibold text-neutral-900 dark:text-white">Bunny</div>
+                <div className="text-xs text-neutral-500 dark:text-neutral-400">@bunny777</div>
               </div>
             </div>
             <div className="flex gap-2">
@@ -54,13 +59,23 @@ export default function ProfileDropdown() {
             </div>
           </div>
 
-          <div className="py-2">
-            <MenuItem icon={User} label="My Profile" />
-            <MenuItem icon={Settings} label="Account Settings" />
-            <MenuItem icon={CreditCard} label="Payment Methods" />
-            <MenuItem icon={Shield} label="Security" />
+          {/* Menu Items */}
+          <div className="py-2 border-b border-neutral-200 dark:border-neutral-800">
+            <MenuItem icon={User} label="My Profile" onClick={() => setActivePage('profile')} />
+            <MenuItem icon={Settings} label="Account Settings" onClick={() => setActivePage('settings')} />
+            <MenuItem icon={CreditCard} label="Payment Methods" onClick={() => setActivePage('payment')} />
+            <MenuItem icon={Shield} label="Security" onClick={() => setActivePage('security')} />
           </div>
 
+          {/* Active Page */}
+          <div className="p-4 max-h-64 overflow-auto">
+            {activePage === 'profile' && <MyProfile />}
+            {activePage === 'settings' && <AccountSettings />}
+            {activePage === 'payment' && <PaymentMethods />}
+            {activePage === 'security' && <Security />}
+          </div>
+
+          {/* Sign Out */}
           <div className="border-t border-neutral-200 dark:border-neutral-800 py-2">
             <MenuItem icon={LogOut} label="Sign Out" danger />
           </div>
@@ -70,17 +85,10 @@ export default function ProfileDropdown() {
   );
 }
 
-function MenuItem({
-  icon: Icon,
-  label,
-  danger = false,
-}: {
-  icon: any;
-  label: string;
-  danger?: boolean;
-}) {
+function MenuItem({ icon: Icon, label, onClick, danger = false }: { icon: any; label: string; onClick?: () => void; danger?: boolean }) {
   return (
     <button
+      onClick={onClick}
       className={`w-full flex items-center gap-3 px-4 py-2.5 transition-colors ${
         danger
           ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30'
