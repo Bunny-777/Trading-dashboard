@@ -8,7 +8,7 @@ import Market from './pages/Market';
 import Funds from './pages/Funds';
 import Research from './pages/Research';
 import Tools from './pages/Tools';
-
+import Profile from './pages/profile';
 function App() {
   return (
     <ThemeProvider>
@@ -16,6 +16,7 @@ function App() {
         <Dashboard>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/market" element={<Market />} />
