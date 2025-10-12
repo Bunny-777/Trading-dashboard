@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Maximize2, Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function ExchangePanel() {
   const total = 3450;
@@ -24,16 +24,11 @@ export default function ExchangePanel() {
   }, [darkMode]);
 
   return (
-    <div className="bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 h-full transition-colors">
-      {/* Header */}
+    <div className="bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 h-full shadow-md transition-colors">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Exchange</h3>
-        <div className="flex items-center gap-2">
-        
-        </div>
       </div>
 
-      {/* Chart */}
       <div className="flex flex-col items-center justify-center mb-8">
         <div className="relative w-64 h-64">
           <svg viewBox="0 0 200 200" className="transform -rotate-90">
@@ -68,12 +63,15 @@ export default function ExchangePanel() {
               `;
 
               acc.push(
-                <path
+                <motion.path
                   key={index}
                   d={path}
                   fill={segment.color}
                   stroke={darkMode ? '#171717' : '#e5e7eb'}
                   strokeWidth="2"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1 + index * 0.3 }}
                 />
               );
 
@@ -82,18 +80,20 @@ export default function ExchangePanel() {
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1 }}
+              className="text-center"
+            >
               <div className="text-3xl font-bold text-neutral-900 dark:text-white">{total.toLocaleString()}</div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="border-t border-neutral-200 dark:border-neutral-800 pt-4">
-        <div className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
-          This design was created for BunnyTrades
-        </div>
+      <div className="border-t border-neutral-200 dark:border-neutral-800 pt-4 text-xs text-neutral-500 dark:text-neutral-400 text-center">
+        Animated Donut Exchange Overview
       </div>
     </div>
   );

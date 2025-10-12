@@ -1,24 +1,23 @@
 import { Home, PieChart, Eye, TrendingUp, DollarSign, BookOpen, Settings as SettingsIcon, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Sidebar() {
   const [showModal, setShowModal] = useState(true);
   const location = useLocation();
 
   return (
-    <div className="w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 flex flex-col">
-      {/* Logo Section */}
+    <div className="w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 flex flex-col transition-all">
       <div className="p-6 border-b border-neutral-200 dark:border-neutral-800">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-lime-500 rounded-lg flex items-center justify-center">
+        <Link to="/" className="flex items-center gap-3 hover:scale-105 transition-transform">
+          <div className="w-10 h-10 bg-lime-500 rounded-lg flex items-center justify-center shadow-lg">
             <TrendingUp className="w-6 h-6 text-black" />
           </div>
           <span className="text-xl font-bold text-neutral-900 dark:text-white">BunnyTrades</span>
         </Link>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
         <NavItem icon={Home} label="Home" to="/" active={location.pathname === '/'} />
         <NavItem icon={PieChart} label="Portfolio" to="/portfolio" active={location.pathname === '/portfolio'} />
@@ -27,12 +26,12 @@ export default function Sidebar() {
         <div className="pt-4">
           <NavItem icon={TrendingUp} label="Market" to="/market" active={location.pathname === '/market'} />
           {location.pathname === '/market' && (
-            <div className="ml-8 mt-2 space-y-1">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="ml-8 mt-2 space-y-1">
               <SubNavItem label="CMC 100 Index" active />
               <SubNavItem label="Fear and Greed Index" />
               <SubNavItem label="Altcoin Season Index" />
               <SubNavItem label="Bitcoin Dominance" />
-            </div>
+            </motion.div>
           )}
         </div>
 
@@ -41,9 +40,12 @@ export default function Sidebar() {
         <NavItem icon={SettingsIcon} label="Tools" to="/tools" active={location.pathname === '/tools'} />
       </nav>
 
-      {/* Masterclass Banner */}
       {showModal && (
-        <div className="m-4 bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-4 relative transition-colors">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="m-4 bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-4 relative transition-all"
+        >
           <button
             onClick={() => setShowModal(false)}
             className="absolute top-2 right-2 text-neutral-500 hover:text-neutral-800 dark:hover:text-white transition-colors"
@@ -56,7 +58,7 @@ export default function Sidebar() {
             Check out our new expert guided program to manage your assets
           </div>
 
-          <div className="w-full h-32 bg-gradient-to-br from-lime-500/20 to-emerald-500/20 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+          <div className="w-full h-32 bg-gradient-to-br from-lime-500/20 to-emerald-500/20 rounded-lg mb-3 flex items-center justify-center overflow-hidden animate-pulse">
             <div className="text-6xl">🧑‍💼</div>
           </div>
 
@@ -71,7 +73,7 @@ export default function Sidebar() {
               Explore
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
@@ -81,9 +83,9 @@ function NavItem({ icon: Icon, label, to, active = false }: { icon: any; label: 
   return (
     <Link
       to={to}
-      className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
+      className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all ${
         active
-          ? 'text-lime-500'
+          ? 'text-lime-500 bg-lime-100 dark:bg-lime-900/30 shadow-md'
           : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
       }`}
     >
@@ -96,8 +98,8 @@ function NavItem({ icon: Icon, label, to, active = false }: { icon: any; label: 
 function SubNavItem({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <div
-      className={`text-sm px-3 py-1.5 rounded cursor-pointer transition-colors ${
-        active ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
+      className={`text-sm px-3 py-1.5 rounded cursor-pointer transition-all ${
+        active ? 'text-neutral-900 dark:text-white font-medium' : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
       }`}
     >
       {label}

@@ -9,6 +9,7 @@ import Funds from './pages/Funds';
 import Research from './pages/Research';
 import Tools from './pages/Tools';
 import Profile from './pages/profile';
+import Support from './pages/support';
 function App() {
   return (
     <ThemeProvider>
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/support" element={<Support />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/market" element={<Market />} />
