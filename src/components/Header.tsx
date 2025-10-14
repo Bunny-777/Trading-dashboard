@@ -7,6 +7,14 @@ import { useState } from 'react';
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const [searchFocused, setSearchFocused] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim() !== '') {
+      alert(`You searched for: ${searchQuery}`);
+      setSearchQuery('');
+    }
+  };
 
   return (
     <div className="bg-white dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 sticky top-0 z-50 shadow-sm">
@@ -33,9 +41,12 @@ export default function Header() {
             <input
               type="text"
               placeholder="Search here..."
-              className={`bg-transparent border-none outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 w-40 focus:w-56 transition-all duration-300`}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setSearchFocused(false)}
+              className="bg-transparent border-none outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 w-40 focus:w-56 transition-all duration-300"
             />
           </div>
 
