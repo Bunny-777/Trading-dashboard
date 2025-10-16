@@ -25,14 +25,6 @@ export default function Sidebar() {
 
         <div className="pt-4">
           <NavItem icon={TrendingUp} label="Market" to="/market" active={location.pathname === '/market'} />
-          {location.pathname === '/market' && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="ml-8 mt-2 space-y-1">
-              <SubNavItem label="CMC 100 Index" active />
-              <SubNavItem label="Fear and Greed Index" />
-              <SubNavItem label="Altcoin Season Index" />
-              <SubNavItem label="Bitcoin Dominance" />
-            </motion.div>
-          )}
         </div>
 
         <NavItem icon={DollarSign} label="Funds" to="/funds" active={location.pathname === '/funds'} />
