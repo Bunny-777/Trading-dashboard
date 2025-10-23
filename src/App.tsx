@@ -1,19 +1,22 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import Dashboard from './components/Dashboard';
-import Home from './pages/Home';
-import Portfolio from './pages/Portfolio';
-import Watchlist from './pages/Watchlist';
-import Market from './pages/Market';
-import Funds from './pages/Funds';
-import Research from './pages/Research';
-import Tools from './pages/Tools';
-import Profile from './pages/profile';
-import Support from './pages/support';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext";
+import Dashboard from "./components/Dashboard";
+import Home from "./pages/Home";
+import Portfolio from "./pages/Portfolio";
+import Watchlist from "./pages/Watchlist";
+import Market from "./pages/Market";
+import Funds from "./pages/Funds";
+import Research from "./pages/Research";
+import Tools from "./pages/Tools";
+import Profile from "./pages/profile";
+import Support from "./pages/support";
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop /> {/* 👈 scroll to top on route change */}
         <Dashboard>
           <Routes>
             <Route path="/" element={<Home />} />
